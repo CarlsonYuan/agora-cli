@@ -10,6 +10,7 @@ import (
 
 	"path/filepath"
 
+	agoraChat "github.com/CarlsonYuan/agora-chat-go/v2"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -58,6 +59,19 @@ func (c *Config) GetDefaultAppOrExplicit(cmd *cobra.Command) (*App, error) {
 	}
 
 	return a, nil
+}
+
+func (c *Config) GetClient(cmd *cobra.Command) (*agoraChat.Client, error) {
+	a, err := c.GetDefaultAppOrExplicit(cmd)
+	if err != nil {
+		return nil, err
+	}
+
+	client, err := agoraChat.NewClient(a.AppID, a.AppCertificate, a.BaseURL)
+	if err != nil {
+		return nil, err
+	}
+	return client, nil
 }
 
 func (c *Config) Add(newApp App) error {
