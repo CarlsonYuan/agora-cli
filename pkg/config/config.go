@@ -67,7 +67,7 @@ func (c *Config) GetClient(cmd *cobra.Command) (*agoraChat.Client, error) {
 		return nil, err
 	}
 
-	client, err := agoraChat.NewClient(a.AppID, a.AppCertificate, a.BaseURL)
+	client, err := agoraChat.New(a.AppID, a.AppCertificate, a.BaseURL)
 	if err != nil {
 		return nil, err
 	}
